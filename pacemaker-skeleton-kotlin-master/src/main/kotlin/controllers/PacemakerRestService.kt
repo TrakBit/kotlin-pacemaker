@@ -38,7 +38,9 @@ class PacemakerRestService  {
     val id: String? =  ctx.param("id")
     val user = pacemaker.getUser(id!!)
     if (user != null) {
-      ctx.json(user.activities)
+        val activities = user.activities;
+        val activitiesList = ArrayList(activities.values)
+        ctx.json(activitiesList)
     } else {
       ctx.status(404)
     }
