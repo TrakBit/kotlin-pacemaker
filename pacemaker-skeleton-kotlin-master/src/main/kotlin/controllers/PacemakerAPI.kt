@@ -37,6 +37,17 @@ class PacemakerAPI {
     }
     return activity;
   }
+
+  fun createLocation(id: String, activityId: String, latitude: Double, longitude: Double) {
+      var user = userIndex.get(id)
+      if (user != null) {
+          var activity = activitiesIndex.get(activityId)
+          if (activity != null) {
+              val location = Location(latitude,longitude);
+              activity.route.add(location)
+          }
+      }
+  }
   
   fun getActivity(id: String): Activity? {
     return activitiesIndex[id]

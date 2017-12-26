@@ -63,4 +63,35 @@ class PacemakerRestService  {
     pacemaker.deleteActivities(id!!);
     ctx.status(204)
   }
+
+  fun createLocation(ctx: Context) {
+      val id: String? =  ctx.param("id")
+      val user = pacemaker.getUser(id!!)
+      val activityId: String? =  ctx.param("activityId")
+      val activity = pacemaker.getActivity(activityId!!)
+      if (user != null) {
+          if (activity != null) {
+              val location = ctx.bodyAsClass(Location::class.java)
+              val newLocation = pacemaker.createLocation(user.id, activity.id, location.latitude, location.longitude)
+              ctx.json(newLocation!!)
+          }
+      } else {
+          ctx.status(404)
+      }
+  }
+
+  fun getLocation(ctx: Context) {
+      val id: String? =  ctx.param("id")
+      val user = pacemaker.getUser(id!!)
+      val activityId: String? =  ctx.param("activityId")
+      val activity = pacemaker.getActivity(activityId!!)
+      if (user != null) {
+          if (activity != null) {
+              val Location = ArrayList(activity.route);
+              ctx.json(Location)
+          }
+      } else {
+          ctx.status(404)
+      }
+  }
 }
