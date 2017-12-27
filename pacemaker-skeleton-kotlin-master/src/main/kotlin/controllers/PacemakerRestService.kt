@@ -94,4 +94,18 @@ class PacemakerRestService  {
           ctx.status(404)
       }
   }
+
+  fun getActivityReport(ctx: Context) {
+      val id: String? =  ctx.param("id")
+      val user = pacemaker.getUser(id!!)
+      if (user != null) {
+          val activities = user.activities;
+
+          val activitiesList = ArrayList(activities.values)
+          val sortedActivityList = activitiesList.sortedWith(compareBy({it.type},{it.type}))
+          ctx.json(sortedActivityList)
+      } else {
+          ctx.status(404)
+      }
+  }
 }
