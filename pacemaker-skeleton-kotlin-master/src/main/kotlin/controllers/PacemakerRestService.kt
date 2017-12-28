@@ -2,6 +2,7 @@ package controllers
 
 import io.javalin.Context
 import models.Activity
+import models.Friend
 import models.Location
 import models.User
 
@@ -32,6 +33,15 @@ class PacemakerRestService  {
     } else {
       ctx.status(404)
     }
+  }
+
+  fun follow(ctx: Context) {
+      val id: String? =  ctx.param("id")
+      val user = pacemaker.getUser(id!!)
+      val email: String? =  ctx.param("email")
+      val friend = pacemaker.getUserByEmail(email!!)
+      var newFriend = Friend(friend!!);
+      pacemaker.follow(user!!, newFriend !!)
   }
 
   fun getActivities(ctx: Context) {
@@ -100,7 +110,6 @@ class PacemakerRestService  {
       val user = pacemaker.getUser(id!!)
       if (user != null) {
           val activities = user.activities;
-
           val activitiesList = ArrayList(activities.values)
           val sortedActivityList = activitiesList.sortedWith(compareBy({it.type},{it.type}))
           ctx.json(sortedActivityList)

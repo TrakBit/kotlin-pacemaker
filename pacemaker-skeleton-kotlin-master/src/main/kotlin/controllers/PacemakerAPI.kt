@@ -2,6 +2,7 @@ package controllers
 
 import java.util.UUID;
 import models.Activity
+import models.Friend
 import models.Location
 import models.User
 
@@ -63,4 +64,17 @@ class PacemakerAPI {
       user.activities.clear();
     }
   }
+
+  fun follow(user: User, friend: Friend) {
+      var newFriend: Boolean = true
+      user.friends.forEach { f:Friend ->
+        if(f.friend.email == friend.friend.email) {
+          newFriend = false
+        }
+      }
+      if (newFriend) {
+        user.friends.add(friend)
+      }
+  }
+
 }
