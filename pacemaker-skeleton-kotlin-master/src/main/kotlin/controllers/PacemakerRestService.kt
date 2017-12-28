@@ -117,4 +117,18 @@ class PacemakerRestService  {
           ctx.status(404)
       }
   }
+
+    fun listFriends(ctx: Context) {
+        val id: String? =  ctx.param("id")
+        val user = pacemaker.getUser(id!!)
+        if (user != null) {
+            if(user.friends.isEmpty()) {
+                ctx.status(404)
+            } else {
+               ctx.json(user.friends)
+            }
+        } else {
+            ctx.status(404)
+        }
+    }
 }
