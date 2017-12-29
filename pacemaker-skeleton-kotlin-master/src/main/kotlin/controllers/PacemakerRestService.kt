@@ -48,7 +48,7 @@ class PacemakerRestService  {
     val id: String? =  ctx.param("id")
     val user = pacemaker.getUser(id!!)
     if (user != null) {
-        val activities = user.activities;
+        val activities = user.activities
         val activitiesList = ArrayList(activities.values)
         ctx.json(activitiesList)
     } else {
@@ -70,7 +70,7 @@ class PacemakerRestService  {
   
   fun deleteActivites(ctx: Context) {
     val id: String? =  ctx.param("id")
-    pacemaker.deleteActivities(id!!);
+    pacemaker.deleteActivities(id!!)
     ctx.status(204)
   }
 
@@ -97,7 +97,7 @@ class PacemakerRestService  {
       val activity = pacemaker.getActivity(activityId!!)
       if (user != null) {
           if (activity != null) {
-              val Location = ArrayList(activity.route);
+              val Location = ArrayList(activity.route)
               ctx.json(Location)
           }
       } else {
@@ -129,6 +129,24 @@ class PacemakerRestService  {
             }
         } else {
             ctx.status(404)
+        }
+    }
+
+    fun getFriendActivityReport(ctx: Context) {
+        val id: String? =  ctx.param("id")
+        val email: String? =  ctx.param("email")
+        val user = pacemaker.getUser(id!!)
+        if (user != null) {
+            if(user.friends.isEmpty()) {
+                ctx.status(404)
+            } else {
+                user.friends.forEach { f: Friend ->
+                    if (f.friend.email == email) {
+                        val friendActivityList = ArrayList(f.friend.activities.values)
+                        ctx.json(friendActivityList)
+                    }
+                }
+            }
         }
     }
 }

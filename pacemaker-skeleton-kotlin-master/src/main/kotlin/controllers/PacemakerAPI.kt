@@ -44,7 +44,7 @@ class PacemakerAPI {
       if (user != null) {
           var activity = activitiesIndex.get(activityId)
           if (activity != null) {
-              val location = Location(latitude,longitude);
+              val location = Location(latitude,longitude)
               activity.route.add(location)
           }
       }
@@ -61,12 +61,12 @@ class PacemakerAPI {
       for ((u, activity) in user.activities) {
         activitiesIndex.remove(activity.id)
       }
-      user.activities.clear();
+      user.activities.clear()
     }
   }
 
   fun follow(user: User, friend: Friend) {
-      var newFriend: Boolean = true
+      var newFriend = true
       user.friends.forEach { f:Friend ->
         if(f.friend.email == friend.friend.email) {
           newFriend = false
