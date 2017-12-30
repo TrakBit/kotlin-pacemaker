@@ -9,4 +9,5 @@ data class User(
     val password: String = "",
     var id: String = UUID.randomUUID().toString(),
     val activities: MutableMap<String, Activity> = hashMapOf<String, Activity>(),
-    val friends: MutableList<Friend> = ArrayList())
+    val friends: MutableList<Friend> = ArrayList(),
+    val messages: ArrayList<String> = arrayListOf<String>())

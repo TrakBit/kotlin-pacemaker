@@ -149,4 +149,16 @@ class PacemakerRestService  {
             }
         }
     }
+
+    fun sendMessage(ctx: Context) {
+        val id: String? =  ctx.param("id")
+        val email: String? =  ctx.param("email")
+        val message: String? = ctx.bodyAsClass(String::class.java)
+        val user = pacemaker.getUser(id!!)
+        user?.friends?.forEach { f ->
+            if (f.friend.email == email) {
+                f.friend.messages.add(message!!)
+            }
+        }
+    }
 }
