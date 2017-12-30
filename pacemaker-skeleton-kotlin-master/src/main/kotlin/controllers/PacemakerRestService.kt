@@ -161,4 +161,14 @@ class PacemakerRestService  {
             }
         }
     }
+
+    fun listMessages(ctx: Context) {
+        val id: String? =  ctx.param("id")
+        val user = pacemaker.getUser(id!!)
+        if (user != null) {
+            ctx.json(user.messages)
+        } else {
+            ctx.status(404)
+        }
+    }
 }
