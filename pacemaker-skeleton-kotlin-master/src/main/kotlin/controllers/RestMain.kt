@@ -31,4 +31,5 @@ fun configRoutes(app: Javalin, service: PacemakerRestService) {
   app.delete("/users/:id/activities") { ctx -> service.deleteActivites(ctx) }
   app.post("/users/:id/friend/:email/") {ctx -> service. sendMessage(ctx)}
   app.get("/users/:id/listMessages") {ctx -> service.listMessages(ctx)}
+  app.post("/users/:id/messageAll") {ctx -> service.messageAll(ctx)}
 }

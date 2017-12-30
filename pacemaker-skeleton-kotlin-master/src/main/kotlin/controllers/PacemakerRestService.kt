@@ -171,4 +171,13 @@ class PacemakerRestService  {
             ctx.status(404)
         }
     }
+
+    fun messageAll(ctx: Context) {
+        val id: String? =  ctx.param("id")
+        val user = pacemaker.getUser(id!!)
+        val message: String? = ctx.bodyAsClass(String::class.java)
+        user?.friends?.forEach { friend: Friend ->
+            friend.friend.messages.add(message!!)
+        }
+    }
 }
