@@ -180,4 +180,8 @@ class PacemakerRestService  {
             friend.friend.messages.add(message!!)
         }
     }
+
+    fun distanceLeaderBoard(ctx: Context) {
+        ctx.json(pacemaker.getLeaderBoard())
+    }
 }

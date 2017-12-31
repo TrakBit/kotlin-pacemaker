@@ -32,4 +32,5 @@ fun configRoutes(app: Javalin, service: PacemakerRestService) {
   app.post("/users/:id/friend/:email/") {ctx -> service. sendMessage(ctx)}
   app.get("/users/:id/listMessages") {ctx -> service.listMessages(ctx)}
   app.post("/users/:id/messageAll") {ctx -> service.messageAll(ctx)}
+  app.get("/users/leaderBoard") {ctx -> service.distanceLeaderBoard(ctx)}
 }
