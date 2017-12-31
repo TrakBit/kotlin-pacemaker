@@ -34,4 +34,5 @@ fun configRoutes(app: Javalin, service: PacemakerRestService) {
   app.post("/users/:id/messageAll") {ctx -> service.messageAll(ctx)}
   app.get("/users/leaderBoard") {ctx -> service.distanceLeaderBoard(ctx)}
   app.get("/users/leaderBoard/:location") {ctx -> service.locationLeaderBoard(ctx)}
+  app.get("/users/leaderBoardByType/:type") {ctx -> service.distanceLeaderBoardByType(ctx)}
 }

@@ -100,4 +100,20 @@ class PacemakerAPI {
         return leaderBoardList
     }
 
+    fun getDistanceLeaderBoardByType(type: String): List<LeaderBoard> {
+        val leaderBoardList = arrayListOf<LeaderBoard>()
+        users.forEach({
+            val email = it.email
+            var score = 0.0F
+            it.activities.forEach { activity ->
+                if (activity.value.type == type) {
+                    score += activity.value.distance
+                    val leaderBoard = LeaderBoard(email, score)
+                    leaderBoardList.add(leaderBoard)
+                }
+            }
+        })
+        return leaderBoardList
+    }
+
 }

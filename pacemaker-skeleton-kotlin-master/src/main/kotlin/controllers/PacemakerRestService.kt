@@ -185,6 +185,11 @@ class PacemakerRestService {
         ctx.json(pacemaker.getDistanceLeaderBoard())
     }
 
+    fun distanceLeaderBoardByType(ctx: Context) {
+        val type: String? = ctx.param("type")
+        ctx.json(pacemaker.getDistanceLeaderBoardByType(type!!))
+    }
+
     fun locationLeaderBoard(ctx: Context) {
         val location: String? = ctx.param("location")
         ctx.json(pacemaker.getLocationLeaderBoard(location!!))
