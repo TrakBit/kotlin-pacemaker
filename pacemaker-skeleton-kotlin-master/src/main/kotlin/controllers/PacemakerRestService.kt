@@ -97,8 +97,8 @@ class PacemakerRestService {
         val activity = pacemaker.getActivity(activityId!!)
         if (user != null) {
             if (activity != null) {
-                val Location = ArrayList(activity.route)
-                ctx.json(Location)
+                val location = ArrayList(activity.route)
+                ctx.json(location)
             }
         } else {
             ctx.status(404)
@@ -109,7 +109,7 @@ class PacemakerRestService {
         val id: String? = ctx.param("id")
         val user = pacemaker.getUser(id!!)
         if (user != null) {
-            val activities = user.activities;
+            val activities = user.activities
             val activitiesList = ArrayList(activities.values)
             val sortedActivityList = activitiesList.sortedWith(compareBy({ it.type }, { it.type }))
             ctx.json(sortedActivityList)
@@ -140,9 +140,9 @@ class PacemakerRestService {
             if (user.friends.isEmpty()) {
                 ctx.status(404)
             } else {
-                user.friends.forEach { f: Friend ->
-                    if (f.friend.email == email) {
-                        val friendActivityList = ArrayList(f.friend.activities.values)
+                user.friends.forEach { friend ->
+                    if (friend.friend.email == email) {
+                        val friendActivityList = ArrayList(friend.friend.activities.values)
                         ctx.json(friendActivityList)
                     }
                 }
@@ -155,9 +155,9 @@ class PacemakerRestService {
         val email: String? = ctx.param("email")
         val message: String? = ctx.bodyAsClass(String::class.java)
         val user = pacemaker.getUser(id!!)
-        user?.friends?.forEach { f ->
-            if (f.friend.email == email) {
-                f.friend.messages.add(message!!)
+        user?.friends?.forEach { friend ->
+            if (friend.friend.email == email) {
+                friend.friend.messages.add(message!!)
             }
         }
     }
@@ -176,7 +176,7 @@ class PacemakerRestService {
         val id: String? = ctx.param("id")
         val user = pacemaker.getUser(id!!)
         val message: String? = ctx.bodyAsClass(String::class.java)
-        user?.friends?.forEach { friend: Friend ->
+        user?.friends?.forEach { friend ->
             friend.friend.messages.add(message!!)
         }
     }
