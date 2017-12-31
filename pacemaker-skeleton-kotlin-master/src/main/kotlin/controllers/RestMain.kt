@@ -23,6 +23,7 @@ fun configRoutes(app: Javalin, service: PacemakerRestService) {
   app.get("/users/:id/activityReport") { ctx -> service.getActivityReport(ctx) }
   app.get("/users/:id/friendActivityReport/:email") { ctx -> service.getFriendActivityReport(ctx) }
   app.post("/users/:id/follow/:email") { ctx -> service.follow(ctx) }
+  app.post("/users/:id/unfollow/:email") { ctx -> service.unfollow(ctx) }
   app.get("/users/:id/friends") { ctx -> service.listFriends(ctx) }
   app.get("/users/:id/activities/:activityId") { ctx -> service.getActivity(ctx) }
   app.post("/users/:id/activities") { ctx -> service.createActivity(ctx) }

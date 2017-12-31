@@ -194,4 +194,16 @@ class PacemakerRestService {
         val location: String? = ctx.param("location")
         ctx.json(pacemaker.getLocationLeaderBoard(location!!))
     }
+
+    fun unfollow(ctx: Context) {
+        val id: String? = ctx.param("id")
+        val user = pacemaker.getUser(id!!)
+        val email: String? = ctx.param("email")
+        val friend = pacemaker.getUserByEmail(email!!)
+        user?.friends?.forEachIndexed({ i, f ->
+            if (f.friend.id == friend?.id) {
+                user.friends.removeAt(i)
+            }
+        })
+    }
 }
