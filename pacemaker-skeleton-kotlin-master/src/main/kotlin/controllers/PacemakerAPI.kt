@@ -69,7 +69,7 @@ class PacemakerAPI {
         if (newFriend) user.friends.add(friend)
     }
 
-    fun getLeaderBoard(): List<LeaderBoard> {
+    fun getDistanceLeaderBoard(): List<LeaderBoard> {
         val leaderBoardList = arrayListOf<LeaderBoard>()
         users.forEach({
             val email = it.email
@@ -81,6 +81,23 @@ class PacemakerAPI {
             leaderBoardList.add(leaderBoard)
         })
         return leaderBoardList.sortedWith(compareByDescending({it.score}))
+    }
+
+    fun getLocationLeaderBoard(location: String): ArrayList<LeaderBoard> {
+        val leaderBoardList = arrayListOf<LeaderBoard>()
+        users.forEach({
+            it.activities.forEach({ activity ->
+                var email: String
+                var score = 0.0F
+                if (activity.value.location == location) {
+                    score += activity.value.distance
+                    email = it.email
+                    val leaderBoard = LeaderBoard(email, score)
+                    leaderBoardList.add(leaderBoard)
+                }
+            })
+        })
+        return leaderBoardList
     }
 
 }
