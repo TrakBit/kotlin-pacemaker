@@ -1,6 +1,6 @@
 package controllers
 
-import io.javalin.Context
+ import io.javalin.Context
 import models.Activity
 import models.Friend
 import models.Location
@@ -41,7 +41,7 @@ class PacemakerRestService {
         val email: String? = ctx.param("email")
         val friend = pacemaker.getUserByEmail(email!!)
         var newFriend = Friend(friend!!);
-        pacemaker.follow(user!!, newFriend!!)
+        ctx.json(pacemaker.follow(user!!, newFriend!!))
     }
 
     fun getActivities(ctx: Context) {

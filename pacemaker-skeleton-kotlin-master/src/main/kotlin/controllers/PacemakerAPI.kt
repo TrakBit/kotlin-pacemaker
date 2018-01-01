@@ -35,15 +35,18 @@ class PacemakerAPI {
         return activity;
     }
 
-    fun createLocation(id: String, activityId: String, latitude: Double, longitude: Double) {
+    fun createLocation(id: String, activityId: String, latitude: Double, longitude: Double): Location {
+        var location = Location()
         var user = userIndex.get(id)
         if (user != null) {
             var activity = activitiesIndex.get(activityId)
             if (activity != null) {
-                val location = Location(latitude, longitude)
+                location = Location(latitude, longitude)
                 activity.route.add(location)
+
             }
         }
+        return location
     }
 
     fun getActivity(id: String): Activity? {
@@ -61,12 +64,17 @@ class PacemakerAPI {
         }
     }
 
-    fun follow(user: User, friend: Friend) {
+    fun follow(user: User, friend: Friend): Friend {
+        var friendAdded = Friend()
         var newFriend = true
         user.friends.forEach({ f ->
             if (f.friend.email == friend.friend.email) newFriend = false
         })
-        if (newFriend) user.friends.add(friend)
+        if (newFriend) {
+            user.friends.add(friend)
+            friendAdded = friend
+        }
+        return friendAdded
     }
 
     fun getDistanceLeaderBoard(): List<LeaderBoard> {

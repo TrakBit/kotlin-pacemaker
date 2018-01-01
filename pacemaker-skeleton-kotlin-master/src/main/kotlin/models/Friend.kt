@@ -1,5 +1,5 @@
 package models
 
 data class Friend (
-    val friend: User
+    val friend: User = User()
 )
