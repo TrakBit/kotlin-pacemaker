@@ -158,6 +158,7 @@ class PacemakerRestService {
         user?.friends?.forEach { friend ->
             if (friend.friend.email == email) {
                 friend.friend.messages.add(message!!)
+                ctx.json(message)
             }
         }
     }
