@@ -206,5 +206,6 @@ class PacemakerRestService {
                 user.friends.removeAt(i)
             }
         })
+        ctx.json(user!!)
     }
 }
